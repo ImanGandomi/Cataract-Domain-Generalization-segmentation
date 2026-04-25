@@ -1,0 +1,10 @@
+# Add your dependencies here
+pandas
+torch
+torchvision
+opencv-python
+matplotlib
+numpy
+pycocotools
+scikit-learn
+tqdm
