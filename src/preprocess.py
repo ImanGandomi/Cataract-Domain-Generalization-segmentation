@@ -92,5 +92,5 @@ def resize_and_pad_coco(json_path, image_dir, output_dir, target_size=512):
     print(f"\nDone! Preprocessed data saved to {output_dir}")
 
 # مثال برای اجرا (باید مسیرهای خودت را جایگزین کنی)
-resize_and_pad_coco("C:/Users/LENOVO/Desktop/Segmentation paper DG/data/Cataract-1K/_annotations.coco.json", "C:/Users/LENOVO/Desktop/Segmentation paper DG/data/Cataract-1K/test", "C:/Users/LENOVO/Desktop/Segmentation paper DG/data/Cataract-1K/After padding", 512)
+resize_and_pad_coco(r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\raw\_annotations.coco.json", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\raw\train", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\with_padding", 512)
 
