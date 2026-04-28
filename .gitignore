@@ -1,6 +1,7 @@
 # Ignore data files
 env/
 data/
+runs/
 outputs/
 __pycache__/
 .vscode/
