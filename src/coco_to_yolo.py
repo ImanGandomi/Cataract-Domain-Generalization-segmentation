@@ -47,8 +47,8 @@ def convert_to_yolo(json_path, images_root, output_labels_dir):
                         f_out.write(line)
 
 # نحوه اجرا برای Cataract-1k (مثال):
-base_path = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\padded_splited_data\labels"
-convert_to_yolo(f"{base_path}/train_annotations.json", f"{base_path}/images/train", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\txt\padded_splited_data\train\labels")
-convert_to_yolo(f"{base_path}/val_annotations.json", f"{base_path}/images/val", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\txt\padded_splited_data\val\labels")
-convert_to_yolo(f"{base_path}/test_annotations.json", f"{base_path}/images/test", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\txt\padded_splited_data\test\labels")
+base_path = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\CaDIS\coco\padded_splited_data\labels"
+convert_to_yolo(f"{base_path}/train_annotations.json", f"{base_path}/images/train", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\CaDIS\txt\padded_splited_data\train\labels")
+convert_to_yolo(f"{base_path}/val_annotations.json", f"{base_path}/images/val", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\CaDIS\txt\padded_splited_data\val\labels")
+convert_to_yolo(f"{base_path}/test_annotations.json", f"{base_path}/images/test", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\CaDIS\txt\padded_splited_data\test\labels")
 

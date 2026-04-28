@@ -1,10 +1,11 @@
 # Add your dependencies here
 pandas
-torch
-torchvision
+# torch
+# torchvision
 opencv-python
 matplotlib
 numpy
 pycocotools
 scikit-learn
 tqdm
+ultralytics 
