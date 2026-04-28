@@ -1,0 +1,14 @@
+# data.yaml
+path: C:/Users/LENOVO/Desktop/Segmentation paper DG/data/Cataract-1K/txt/padded_splited_data # مسیر اصلی
+train: ../train/images
+val: ../val/images
+test: ../test/images
+
+# تعداد کلاس‌ها (مثلاً برای Cataract-1k برابر ۱۲ است)
+nc: 12 
+
+# نام کلاس‌ها (دقیقاً با ترتیبی که در فایل JSON بودند)
+names: ['Cannula', 'Cap Cystotome', 'Cap Forceps', 'Cornea', 'Forceps', 'I-A Handpiece', 'Lens Injector', 'Phaco Handpiece', 'Primary Knife', 'Pupil', 'Second Instrument', 'Secondary Knife']
+
+
+  
