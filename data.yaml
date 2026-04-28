@@ -1,8 +1,9 @@
 # data.yaml
-path: C:/Users/LENOVO/Desktop/Segmentation paper DG/data/Cataract-1K/txt/padded_splited_data # مسیر اصلی
+path: /kaggle/input/datasets/imangandomi/my-dataset/padded_splited_data # مسیر اصلی
 train: ../train/images
 val: ../val/images
 test: ../test/images
+
 
 # تعداد کلاس‌ها (مثلاً برای Cataract-1k برابر ۱۲ است)
 nc: 12 
