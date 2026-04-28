@@ -7,7 +7,7 @@ def start_training():
     # ۱. انتخاب مدل YOLOv11-seg 
     # (n: nano, s: small, m: medium, l: large, x: extra large)
     # برای شروع و بنچمارک اولیه، مدل 's' تعادل خوبی بین سرعت و دقت دارد.
-    model = YOLO("yolo11s-seg.pt") 
+    model = YOLO("yolo11l-seg.pt") 
 
     # ۲. تنظیمات آموزش
     model.train(
@@ -18,7 +18,7 @@ def start_training():
         device=0,              # استفاده از GPU (اگر چند GPU دارید، لیست بدهید [0, 1])
         project="Surgical_Seg", # نام پروژه برای ذخیره‌سازی
         name="cataract_v11_exp1", # نام این آزمایش خاص
-        patience=20,           # Early Stopping (اگر ۲۰ اپوک پیشرفتی حاصل نشد، متوقف شو)
+        patience=15,           # Early Stopping (اگر ۲۰ اپوک پیشرفتی حاصل نشد، متوقف شو)
         save=True,             # ذخیره وزن‌های مدل
         plots=True,            # رسم نمودارهای Loss و mAP
         deterministic=True,    # برای تکرارپذیری نتایج در مقاله
