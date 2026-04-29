@@ -12,17 +12,43 @@ def start_training():
     # ۲. تنظیمات آموزش
     model.train(
         data=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\txt\padded_splited_data\data.yaml",      # مسیر فایل تنظیمات
-        epochs=100,            # تعداد دفعات تکرار (قابل تغییر بر اساس مانیتورینگ)
-        imgsz=512,             # ابعاد تصاویر (مطابق با پدینگ انجام شده)
-        batch=16,              # اگر با کمبود حافظه GPU مواجه شدید، این عدد را کم کنید
-        device=0,              # استفاده از GPU (اگر چند GPU دارید، لیست بدهید [0, 1])
-        project="Surgical_Seg", # نام پروژه برای ذخیره‌سازی
-        name="cataract_v11_exp1", # نام این آزمایش خاص
-        patience=15,           # Early Stopping (اگر ۲۰ اپوک پیشرفتی حاصل نشد، متوقف شو)
-        save=True,             # ذخیره وزن‌های مدل
-        plots=True,            # رسم نمودارهای Loss و mAP
-        deterministic=True,    # برای تکرارپذیری نتایج در مقاله
-        seed=42                # عدد شانس ما برای آزمایش‌های علمی
+        epochs=3,
+        optimizer='auto',
+        imgsz=512,
+        batch=16,
+        device=0,
+        save=True,
+        plots=True, 
+
+        # --- Research Integrity ---
+        project='Cataract_DG_Phase1',
+        name='Train_CaDIS_Base', # این نام را در هر اجرا تغییر بده
+        seed=42,
+        deterministic=True,
+        patience=15,
+
+        # --- Class Imbalance ---
+        cls_pw=0.5,
+        overlap_mask=True,
+    
+
+        # --- فعال‌سازی آگمنتیشن پایه ---
+        augment=True, 
+        fliplr=0.5,     # احتمال ۵۰٪ برای فلیپ چپ و راست
+        degrees=0.0,    # چرخش
+        translate=0.0,  # جابجایی
+        scale=0.0,      # تغییر اندازه تصادفی
+        shear=0.0,      # قیچی کردن تصویر
+        perspective=0.0,# تغییر پرسپکتیو
+        flipud=0.0,     # فلیپ بالا و پایین
+        hsv_h=0.0,      # تغییر رنگ (Hue)
+        hsv_s=0.0,      # غلظت رنگ (Saturation)
+        hsv_v=0.0,      # روشنایی (Value)
+        mosaic=0.0,     # ترکیب ۴ تصویر (حتماً صفر شود)
+        mixup=0.0,      # ترکیب ۲ تصویر روی هم
+        copy_paste=0.0, # کپی ابزارها روی تصاویر دیگر
+        auto_augment=None,
+        erasing=0.0     # حذف تصادفی بخشی از تصویر
     )
 
 
