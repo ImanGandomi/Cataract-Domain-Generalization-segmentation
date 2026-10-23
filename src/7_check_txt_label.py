@@ -50,7 +50,7 @@ def check_yolo_labels(folder_path):
     print("="*30)
 
 # --- مسیر پوشه لیبل‌های خود را اینجا جایگزین کنید ---
-LABEL_DIR = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\txt\padded_splited_data\train\labels"
+LABEL_DIR = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract_LMM\new_2\txt\padded_splited_data\train\labels"
 
 if __name__ == "__main__":
     check_yolo_labels(LABEL_DIR)

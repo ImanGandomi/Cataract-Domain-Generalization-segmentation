@@ -1,76 +1,137 @@
-from ultralytics import YOLO
-import torch
+import os
 import sys
-
-
-def start_training():
-    # ۱. انتخاب مدل YOLOv11-seg 
-    # (n: nano, s: small, m: medium, l: large, x: extra large)
-    # برای شروع و بنچمارک اولیه، مدل 's' تعادل خوبی بین سرعت و دقت دارد.
-    model = YOLO("yolo11l-seg.pt") 
-
-    # ۲. تنظیمات آموزش
-    model.train(
-        data=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\txt\padded_splited_data\data.yaml",      # مسیر فایل تنظیمات
-        epochs=3,
-        optimizer='auto',
-        imgsz=512,
-        batch=16,
-        device=0,
-        save=True,
-        plots=True, 
-
-        # --- Research Integrity ---
-        project='Cataract_DG_Phase1',
-        name='Train_CaDIS_Base', # این نام را در هر اجرا تغییر بده
-        seed=42,
-        deterministic=True,
-        patience=15,
-
-        # --- Class Imbalance ---
-        cls_pw=0.5,
-        overlap_mask=True,
-    
-
-        # --- فعال‌سازی آگمنتیشن پایه ---
-        augment=True, 
-        fliplr=0.5,     # احتمال ۵۰٪ برای فلیپ چپ و راست
-        degrees=0.0,    # چرخش
-        translate=0.0,  # جابجایی
-        scale=0.0,      # تغییر اندازه تصادفی
-        shear=0.0,      # قیچی کردن تصویر
-        perspective=0.0,# تغییر پرسپکتیو
-        flipud=0.0,     # فلیپ بالا و پایین
-        hsv_h=0.0,      # تغییر رنگ (Hue)
-        hsv_s=0.0,      # غلظت رنگ (Saturation)
-        hsv_v=0.0,      # روشنایی (Value)
-        mosaic=0.0,     # ترکیب ۴ تصویر (حتماً صفر شود)
-        mixup=0.0,      # ترکیب ۲ تصویر روی هم
-        copy_paste=0.0, # کپی ابزارها روی تصاویر دیگر
-        auto_augment=None,
-        erasing=0.0     # حذف تصادفی بخشی از تصویر
-    )
-
-
-
+import argparse
+import torch
+from ultralytics import YOLO
 
 def check_environment():
-    print(f"--- Environment Check ---")
+    print("=" * 50)
+    print("Environment Verification:")
     print(f"Python Version: {sys.version}")
     print(f"PyTorch Version: {torch.__version__}")
-    
     cuda_available = torch.cuda.is_available()
     print(f"CUDA Available: {cuda_available}")
     
     if cuda_available:
         print(f"GPU Name: {torch.cuda.get_device_name(0)}")
+        print("=" * 50)
         return True
     else:
-        print("❌ CRITICAL: GPU not found. Do not start training on CPU!")
+        print("⚠️ Warning: CUDA GPU not detected. Training will fall back to CPU or fail if CUDA required.")
+        print("=" * 50)
         return False
 
+def start_training(args):
+    print(f"\n🚀 Initializing YOLOv11-seg Training with weights: {args.weights}")
+    model = YOLO(args.weights)
+    
+    model.train(
+        # --- Basics ---
+        data=args.data,
+        epochs=args.epochs,
+        optimizer=args.optimizer,
+        lr0=args.lr0,
+        momentum=args.momentum,
+        weight_decay=args.weight_decay,
+        imgsz=args.imgsz,
+        batch=args.batch,
+        device=args.device,
+        save=True,
+        plots=True,
 
+        # --- Research Integrity & Seed ---
+        project=args.project,
+        name=args.name,
+        seed=42,
+        deterministic=True,
+        patience=args.patience,
+
+        # --- Class Imbalance & Loss ---
+        cls_pw=0.0,
+        overlap_mask=True,
+
+        # --- Baseline Augmentation (from Paper) ---
+        augment=True,
+        fliplr=0.5,
+        degrees=0.20,
+        translate=0.1,
+        scale=0.2,
+        shear=0.0,
+        perspective=0.0,
+        flipud=0.0,
+        hsv_h=0.0,
+        hsv_s=0.5,
+        hsv_v=0.5,
+        mosaic=0.0,
+        mixup=0.0,
+        copy_paste=0.0
+    )
+    print("\n✅ Training complete.")
+
+def run_validation(args):
+    if not os.path.exists(args.weights):
+        print(f"❌ Error: Model weights not found at {args.weights}")
+        return
+
+    print(f"\n📊 Starting Validation using model: {args.weights}")
+    model = YOLO(args.weights)
+    metrics = model.val(
+        data=args.data,
+        imgsz=args.imgsz,
+        device=args.device
+    )
+    print("✅ Validation completed successfully!")
+    return metrics
+
+def run_prediction(args):
+    if not os.path.exists(args.weights):
+        print(f"❌ Error: Model weights not found at {args.weights}")
+        return
+        
+    if not os.path.exists(args.source):
+        print(f"❌ Error: Source path not found at {args.source}")
+        return
+
+    print(f"\n🔍 Running Prediction (Inference)...")
+    model = YOLO(args.weights)
+    results = model.predict(
+        source=args.source,
+        conf=args.conf,
+        save=True,
+        device=args.device
+    )
+    print(f"✅ Prediction completed! Saved to runs/segment/predict")
+    return results
+
+def main():
+    parser = argparse.ArgumentParser(description="YOLOv11-seg Pipeline for Cataract Surgery Domain Generalization")
+    parser.add_argument("--mode", type=str, choices=["train", "val", "predict"], default="train", help="Mode: train, val, predict")
+    parser.add_argument("--weights", type=str, default="yolo11m-seg.pt", help="Path to initial weights or trained model")
+    parser.add_argument("--data", type=str, default="configs/data.yaml", help="Path to data.yaml config")
+    parser.add_argument("--epochs", type=int, default=100, help="Number of training epochs")
+    parser.add_argument("--batch", type=int, default=16, help="Batch size")
+    parser.add_argument("--imgsz", type=int, default=512, help="Image size (pixels)")
+    parser.add_argument("--device", default=0, help="Device (0 or cpu)")
+    parser.add_argument("--lr0", type=float, default=0.000625, help="Initial learning rate")
+    parser.add_argument("--momentum", type=float, default=0.9, help="SGD / Adam momentum")
+    parser.add_argument("--weight_decay", type=float, default=0.0005, help="Weight decay")
+    parser.add_argument("--optimizer", type=str, default="AdamW", help="Optimizer (AdamW, SGD, auto)")
+    parser.add_argument("--patience", type=int, default=15, help="Early stopping patience")
+    parser.add_argument("--project", type=str, default="Cataract_DG", help="Project directory name")
+    parser.add_argument("--name", type=str, default="exp_run", help="Run experiment name")
+    parser.add_argument("--source", type=str, default="./data/test/images", help="Inference source folder or image")
+    parser.add_argument("--conf", type=float, default=0.25, help="Confidence threshold for prediction")
+
+    args = parser.parse_args()
+
+    check_environment()
+
+    if args.mode == "train":
+        start_training(args)
+    elif args.mode == "val":
+        run_validation(args)
+    elif args.mode == "predict":
+        run_prediction(args)
 
 if __name__ == "__main__":
-    if check_environment():
-        start_training()
+    main()

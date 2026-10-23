@@ -31,13 +31,35 @@ def get_manual_split_lists(dataset_type):
     تعریف لیست‌های دستی دقیق برای هر دیتاست
     """
     if dataset_type == 'cataract-1k':
-        val = {'case5017', 'case5032', 'case5301', 'case5309', 'case53153', 'case5325'}
-        test = {'case5015', 'case5300', 'case5303', 'case5304', 'case5305', 'case5329'}
+        # val = {'case5017', 'case5032', 'case5301', 'case5309', 'case53153', 'case5325'}
+        # test = {'case5015', 'case5300', 'case5303', 'case5304', 'case5305', 'case5329'}
+
+        # Cat1k_anatomy_instrument
+        # fold_0
+        # val = {'case5032', 'case5063', 'case5072', 'case5180', 'case5309', 'case5325'}
+        # test = {'case5014', 'case5015', 'case5017', 'case5051', 'case5303', 'case5334'}
+
+        # # fold_1
+        # val = {'case5014', 'case5015', 'case5017', 'case5051', 'case5303', 'case5334'}
+        # test = {'case5032', 'case5063', 'case5072', 'case5180', 'case5309', 'case5325'}
+
+        # # fold_2
+        # val = {'case5014', 'case5015', 'case5017', 'case5051', 'case5303', 'case5334'}
+        # test = {'case5104', 'case5299', 'case5304', 'case5305', 'case5319', 'case5340'}
+
+        # # fold_3
+        # val = {'case5014', 'case5015', 'case5017', 'case5051', 'case5303', 'case5334'}
+        # test = {'case5013', 'case5300', 'case5301', 'case53153', 'case5317', 'case5335'}
+
+        # my custom split based on fold 0
+        val = {'case5032', 'case5063', 'case5180', 'case5309', 'case5325'}
+        test = {'case5014', 'case5015', 'case5017', 'case5051', 'case5303', 'case5334'}
+        
     
     elif dataset_type == 'lmm':
         # اعداد بر اساس لیست ارسالی شما (فرمت SE_00XX)
-        val_raw = [17, 44, 46, 56, 126, 137, 142, 11, 23, 27, 41, 102, 105, 110, 111, 123, 64, 76, 81, 114, 116, 135, 141]
-        test_raw = [103, 5, 20, 22, 106, 113, 124, 14, 15, 34, 45, 51, 62, 70, 78, 120, 71, 75, 80, 89, 94, 99, 139]
+        val_raw = [17, 44, 46, 56, 126, 137, 142, 11, 23, 27, 41, 102, 105, 110, 111, 123, 64, 76, 114, 116, 135, 141]   #81 went to train
+        test_raw = [103, 5, 20, 22, 113, 124, 14, 15, 34, 45, 51, 62, 70, 78, 120, 71, 75, 80, 89, 94, 99, 139]     #106 went to train
         val = {f"SE_{i:04d}" for i in val_raw}
         test = {f"SE_{i:04d}" for i in test_raw}
         
@@ -110,8 +132,8 @@ def split_coco_unified(json_path, input_images_dir, output_dir, dataset_type):
 # --- مثال اجرا برای CADIS ---
 if __name__ == "__main__":
     split_coco_unified(
-        json_path=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\CaDIS\coco\with_padding\annotations.json",
-        input_images_dir=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\CaDIS\coco\with_padding\images",
-        output_dir=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\CaDIS\coco\padded_splited_data",
-        dataset_type="cadis"
+        json_path=r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\coco\raw\annotations.json",
+        input_images_dir=r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\coco\raw\images",
+        output_dir=r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\coco\splitted_data",
+        dataset_type="lmm"
     )

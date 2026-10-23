@@ -90,4 +90,5 @@ def verify_batch_labels_colored(image_dir, json_path, num_samples=10):
     plt.show()
 
 # مسیرها را مطابق با خروجی preprocess.py تنظیم کن
-verify_batch_labels_colored(r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\with_padding\images", r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\with_padding\annotations.json")
+verify_batch_labels_colored(image_dir = r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\coco\splitted_data\images\test",
+                            json_path = r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\coco\splitted_data\labels\test_annotations.json")

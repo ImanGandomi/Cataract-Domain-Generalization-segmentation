@@ -58,8 +58,8 @@ def fix_cataract_filenames(json_path, image_dir):
 
 # --- تنظیم مسیرهای دقیق شما ---
 # مسیرها را مطابق با ساختار پروژه خودت نهایی کن
-JSON_FILE = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\raw\_annotations.coco.json"
-IMAGE_FOLDER = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\coco\raw\train"
+JSON_FILE = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\new\coco\raw\_annotations.coco.json"
+IMAGE_FOLDER = r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract-1K\new\coco\raw\train"
 
 if __name__ == "__main__":
     fix_cataract_filenames(JSON_FILE, IMAGE_FOLDER)

@@ -1,8 +1,69 @@
-# Ignore data files
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
 env/
-data/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Datasets and raw / processed medical images
+data/*
+!data/README.md
+src/data/
+*.zip
+*.tar.gz
+*.rar
+
+# Paper and PDF documents (do not push to GitHub)
+paper/
+*.pdf
+
+# Model checkpoints and weights (Do not track large binaries > 50MB in git)
+weights/
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# YOLO and Experiment runs / outputs / logs
 runs/
 outputs/
-__pycache__/
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IDE and OS specific files
 .vscode/
-.DS_Store   
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

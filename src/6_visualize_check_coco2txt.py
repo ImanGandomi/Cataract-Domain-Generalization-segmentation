@@ -89,7 +89,7 @@ def visualize_dual_comparison(image_dir, label_dir, json_path, num_samples=10):
 
 # اجرا با مسیرهای ارسالی شما:
 visualize_dual_comparison(
-    image_dir=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract_LMM\coco\padded_splited_data\images\train",
-    label_dir=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract_LMM\txt\padded_splited_data\train\labels",
-    json_path=r"C:\Users\LENOVO\Desktop\Segmentation paper DG\data\Cataract_LMM\coco\padded_splited_data\labels\train_annotations.json"
+    image_dir=r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\coco\splitted_data\images\test",
+    label_dir=r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\txt\splited_data\test\labels",
+    json_path=r"C:\Users\LENOVO\Desktop\Master thesis\Dataset\coco\splitted_data\labels\test_annotations.json"
 )
